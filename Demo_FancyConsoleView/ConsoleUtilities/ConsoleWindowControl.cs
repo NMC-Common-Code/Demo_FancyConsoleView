@@ -27,21 +27,6 @@ namespace Demo_FancyConsoleView
         [DllImport("kernel32.dll", ExactSpelling = true)]
         private static extern IntPtr GetConsoleWindow();
 
-        //static void MainStuff(string[] args)
-        //{
-        //    IntPtr handle = GetConsoleWindow();
-        //    IntPtr sysMenu = GetSystemMenu(handle, false);
-
-        //    if (handle != IntPtr.Zero)
-        //    {
-        //        DeleteMenu(sysMenu, SC_CLOSE, MF_BYCOMMAND);
-        //        DeleteMenu(sysMenu, SC_MINIMIZE, MF_BYCOMMAND);
-        //        DeleteMenu(sysMenu, SC_MAXIMIZE, MF_BYCOMMAND);
-        //        DeleteMenu(sysMenu, SC_SIZE, MF_BYCOMMAND);
-        //    }
-        //    Console.Read();
-        //}
-
         public static void DisableClose()
         {
             IntPtr handle = GetConsoleWindow();

@@ -10,7 +10,13 @@ namespace Demo_FancyConsoleView
     {
         static void Main(string[] args)
         {
+            //
+            // control the console window properties
+            //
             ConsoleWindowControl.DisableResize();
+            ConsoleWindowControl.DisableMaximize();
+            ConsoleWindowControl.DisableMinimize();
+            Console.Title = "Demo of Fancy Console View Framework";
 
             Console.ReadKey();
         }
