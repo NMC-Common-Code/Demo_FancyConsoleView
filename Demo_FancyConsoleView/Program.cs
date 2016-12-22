@@ -10,6 +10,15 @@ namespace Demo_FancyConsoleView
     {
         static void Main(string[] args)
         {
+            InitializeDisplay();
+
+            ConsoleWindowHelper.HeaderTextTest();
+
+            Console.ReadKey();
+        }
+
+        private static void InitializeDisplay()
+        {
             //
             // control the console window properties
             //
@@ -18,7 +27,12 @@ namespace Demo_FancyConsoleView
             ConsoleWindowControl.DisableMinimize();
             Console.Title = "Demo of Fancy Console View Framework";
 
-            Console.ReadKey();
+            //
+            // set the default console window values
+            //
+            ConsoleWindowHelper.InitializeConsoleWindow();
+
+            Console.CursorVisible = false;
         }
     }
 }
