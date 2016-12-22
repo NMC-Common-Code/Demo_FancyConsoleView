@@ -17,7 +17,7 @@ namespace Demo_FancyConsoleView
         //
         // console window header colors
         //
-        public static ConsoleColor HeaderBackgroundColor = ConsoleColor.White;
+        public static ConsoleColor HeaderBackgroundColor = ConsoleColor.DarkRed;
         public static ConsoleColor HeaderForegroundColor = ConsoleColor.Gray;
 
         //
@@ -25,13 +25,14 @@ namespace Demo_FancyConsoleView
         //
         public static ConsoleColor MessageBoxBackgroundColor = ConsoleColor.Gray;
         public static ConsoleColor MessageBoxForegroundColor = ConsoleColor.DarkBlue;
-        public static ConsoleColor MessageBoxHeaderBackgroundColor = ConsoleColor.White;
+        public static ConsoleColor MessageBoxHeaderBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor MessageBoxHeaderForegroundColor = ConsoleColor.Gray;
 
         //
         // menu colors
         //
         public static ConsoleColor MenuBackgroundColor = ConsoleColor.Black;
-        public static ConsoleColor MenuForegroundColor = ConsoleColor.DarkRed;
+        public static ConsoleColor MenuForegroundColor = ConsoleColor.Gray;
+        public static ConsoleColor MenuBorderColor = ConsoleColor.DarkRed;
     }
 }

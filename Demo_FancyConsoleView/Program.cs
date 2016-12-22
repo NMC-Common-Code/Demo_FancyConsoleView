@@ -10,29 +10,11 @@ namespace Demo_FancyConsoleView
     {
         static void Main(string[] args)
         {
-            InitializeDisplay();
-
-            ConsoleWindowHelper.HeaderTextTest();
+            Controller gameController = new Controller();
 
             Console.ReadKey();
         }
 
-        private static void InitializeDisplay()
-        {
-            //
-            // control the console window properties
-            //
-            ConsoleWindowControl.DisableResize();
-            ConsoleWindowControl.DisableMaximize();
-            ConsoleWindowControl.DisableMinimize();
-            Console.Title = "Demo of Fancy Console View Framework";
 
-            //
-            // set the default console window values
-            //
-            ConsoleWindowHelper.InitializeConsoleWindow();
-
-            Console.CursorVisible = false;
-        }
     }
 }

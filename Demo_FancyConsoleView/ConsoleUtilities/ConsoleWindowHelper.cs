@@ -83,7 +83,15 @@ namespace Demo_FancyConsoleView
             HeaderBackground = headerBackground;
             DisplayHeader(headerText);
         }
-        public static void DisplayGamePlayScreenMessageBoxOutline(int topLeftRow, int topLeftColumn, int width, int height)
+
+        /// <summary>
+        /// place an box around an area in the console window
+        /// </summary>
+        /// <param name="topLeftRow">top left row position</param>
+        /// <param name="topLeftColumn">top left column position</param>
+        /// <param name="width">box width</param>
+        /// <param name="height">box height</param>
+        public static void DisplayBoxOutline(int topLeftRow, int topLeftColumn, int width, int height)
         {
             string topLeftCorner = "\u2554";
             string topRightCorner = "\u2557";
@@ -152,7 +160,7 @@ namespace Demo_FancyConsoleView
             formatedHeaderText.Add(new String(' ', ConsoleWindowWidth));
             foreach (string lineOfText in headerText)
             {
-                formatedHeaderText.Add(Center(lineOfText));
+                formatedHeaderText.Add(Center(lineOfText, ConsoleLayout.WindowWidth));
             }
             formatedHeaderText.Add(new String(' ', ConsoleWindowWidth));
 
@@ -164,20 +172,20 @@ namespace Demo_FancyConsoleView
             }
         }
 
-        public static void HeaderTextTest()
-        {
-            List<string> headerText = new List<string>();
-            headerText.Add("My Quest Game");
-            headerText.Add("Laughing Leaf Productions");
+        //public static void HeaderTextTest()
+        //{
+        //    List<string> headerText = new List<string>();
+        //    headerText.Add("My Quest Game");
+        //    headerText.Add("Laughing Leaf Productions");
 
-            DisplayHeader(headerText);
-            Console.ReadKey();
-        }
+        //    DisplayHeader(headerText);
+        //    Console.ReadKey();
+        //}
 
-        public static string Center(string text)
+        public static string Center(string text, int stringLength)
         {
-            int leftPadding = (ConsoleWindowWidth - text.Length) / 2 + text.Length;
-            return text.PadLeft(leftPadding).PadRight(ConsoleWindowWidth);
+            int leftPadding = (stringLength - text.Length) / 2 + text.Length;
+            return text.PadLeft(leftPadding).PadRight(stringLength);
         }
     }
 }

@@ -9,21 +9,27 @@ namespace Demo_FancyConsoleView
     public static class ConsoleLayout
     {
         //
-        // console window size
+        // console window configuration
         //
-        public static int WindowWidth = 120;
+        public static int WindowWidth = 160;
         public static int WindowHeight = 35;
-
-        //
-        // console window position
-        //
         public static int WindowPositionLeft = 0;
         public static int WindowPositionTop = 0;
 
         //
-        // menu position
+        // menu configuration
         //
-        public static int MenuPositionLeft = 100;
-        public static int MenuPositionTop = 6;
+        public static int MenuBoxWidth = 30;
+        public static int MenuBoxHeight = 20;
+        public static int MenuBoxPositionLeft = 100;
+        public static int MenuBoxPositionTop = 6;
+
+        //
+        // message box configuration
+        //
+        public static int MessageBoxWidth = 15;
+        public static int MessageBoxHeight = 20;
+        public static int MessageBoxPositionLeft = 5;
+        public static int MessageBoxPositionTop = 6;
     }
 }
