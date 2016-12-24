@@ -21,12 +21,10 @@ namespace Demo_FancyConsoleView
         public static ConsoleColor HeaderForegroundColor = ConsoleColor.Gray;
 
         //
-        // message box colors
+        // console window footer colors
         //
-        public static ConsoleColor MessageBoxBackgroundColor = ConsoleColor.Gray;
-        public static ConsoleColor MessageBoxForegroundColor = ConsoleColor.DarkBlue;
-        public static ConsoleColor MessageBoxHeaderBackgroundColor = ConsoleColor.Black;
-        public static ConsoleColor MessageBoxHeaderForegroundColor = ConsoleColor.Gray;
+        public static ConsoleColor FooterBackgroundColor = ConsoleColor.DarkRed;
+        public static ConsoleColor FooterForegroundColor = ConsoleColor.Gray;
 
         //
         // menu colors
@@ -34,5 +32,23 @@ namespace Demo_FancyConsoleView
         public static ConsoleColor MenuBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor MenuForegroundColor = ConsoleColor.Gray;
         public static ConsoleColor MenuBorderColor = ConsoleColor.DarkRed;
+
+        //
+        // message box colors
+        //
+        public static ConsoleColor MessageBoxBackgroundColor = ConsoleColor.Black;
+        public static ConsoleColor MessageBoxForegroundColor = ConsoleColor.Gray;
+        public static ConsoleColor MessageBoxBorderColor = ConsoleColor.DarkRed;
+        public static ConsoleColor MessageBoxHeaderBackgroundColor = ConsoleColor.Black;
+        public static ConsoleColor MessageBoxHeaderForegroundColor = ConsoleColor.Gray;
+        
+        //
+        // input box colors
+        //
+        public static ConsoleColor InputBoxBackgroundColor = ConsoleColor.Black;
+        public static ConsoleColor InputBoxForegroundColor = ConsoleColor.Gray;
+        public static ConsoleColor InputBoxBorderColor = ConsoleColor.DarkRed;
+        public static ConsoleColor InputBoxHeaderBackgroundColor = ConsoleColor.Black;
+        public static ConsoleColor InputBoxHeaderForegroundColor = ConsoleColor.Gray;
     }
 }

@@ -16,6 +16,12 @@ namespace Demo_FancyConsoleView
         //Universe _gameUniverse;
         //Traveler _gameTraveler;
 
+        //
+        // declare menus
+        //
+        Menu _manageTravelerMenu;
+
+
         #endregion
 
         #region PROPERTIES
@@ -32,6 +38,7 @@ namespace Demo_FancyConsoleView
             //_gameTraveler = gameTraveler;
             //_gameUniverse = gameUniverse;
 
+            InitializeMenus();
             InitializeDisplay();
         }
 
@@ -43,8 +50,11 @@ namespace Demo_FancyConsoleView
         {
             Console.Clear();
             ConsoleWindowHelper.DisplayHeader(new List<string>() { "The TARDIS Project" });
+            ConsoleWindowHelper.DisplayFooter(new List<string>() { "Laugh Leaf Productions, 2016" });
 
-            DisplayMenuBox();
+            DisplayMessageBox("Hello NMC");
+            DisplayMenuBox(_manageTravelerMenu);
+            DisplayInputBox("Choose an Action: ");
         }
 
         private static void InitializeDisplay()
@@ -65,33 +75,92 @@ namespace Demo_FancyConsoleView
             Console.CursorVisible = false;
         }
 
-        private void DisplayMenuBox()
+        private void DisplayMenuBox(Menu menu)
         {
             Console.BackgroundColor = ConsoleTheme.MenuBackgroundColor;
             Console.ForegroundColor = ConsoleTheme.MenuBorderColor;
 
-            ConsoleWindowHelper.DisplayBoxOutline(3, 130, 29, 20);
+            //
+            // display menu box border
+            //
+            ConsoleWindowHelper.DisplayBoxOutline(
+                ConsoleLayout.MenuBoxPositionTop,
+                ConsoleLayout.MenuBoxPositionLeft,
+                ConsoleLayout.MenuBoxWidth,
+                ConsoleLayout.MenuBoxHeight);
 
+            //
+            // display menu box header
+            //
+            Console.BackgroundColor = ConsoleTheme.MenuBorderColor;
             Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
+            Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 2, ConsoleLayout.MenuBoxPositionTop + 1);
+            Console.Write(ConsoleWindowHelper.Center("Choose Action", ConsoleLayout.MenuBoxWidth - 4));
 
-            Console.SetCursorPosition(132, 4);
-            Console.Write(ConsoleWindowHelper.Center("Action List", ConsoleLayout.MenuBoxWidth - 2));
+            //
+            // display menu title
+            //
+            Console.BackgroundColor = ConsoleTheme.MenuBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
+            Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 1, ConsoleLayout.MenuBoxPositionTop + 3);
+            Console.Write(ConsoleWindowHelper.Center(menu.MenuTitle, ConsoleLayout.MenuBoxWidth - 4));
 
-
-            int topRow = 5;
+            //
+            // display menu choices
+            //
+            int topRow = ConsoleLayout.MenuBoxPositionTop + 5;
             char menuLetter = 'A';
-
-            List<string> menuItems = new List<string>();
-
-            menuItems = Enum.GetNames(typeof(TravelerAction)).ToList();
-            menuItems.Remove("None");
-            menuItems.Remove("MissionSetup");
-
-            foreach (string menuChoice in menuItems)
+            foreach (TravelerAction menuChoice in menu.MenuChoices)
             {
-                Console.SetCursorPosition(132, topRow++);
-                Console.Write($"{menuLetter++}. {menuChoice}");
+                string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.ToString());
+                Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 2, topRow++);
+                Console.Write($"{menuLetter++}. {formatedMenuChoice}");
             }
+
+
+        }
+
+        private void DisplayMessageBox(string message)
+        {
+            Console.BackgroundColor = ConsoleTheme.MessageBoxBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.MessageBoxBorderColor;
+
+            ConsoleWindowHelper.DisplayBoxOutline(
+                ConsoleLayout.MessageBoxPositionTop,
+                ConsoleLayout.MessageBoxPositionLeft,
+                ConsoleLayout.MessageBoxWidth,
+                ConsoleLayout.MessageBoxHeight);
+        }
+
+        private void DisplayInputBox(string prompt)
+        {
+            Console.BackgroundColor = ConsoleTheme.InputBoxBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.InputBoxBorderColor;
+
+            ConsoleWindowHelper.DisplayBoxOutline(
+                ConsoleLayout.InputBoxPositionTop,
+                ConsoleLayout.InputBoxPositionLeft,
+                ConsoleLayout.InputBoxWidth,
+                ConsoleLayout.InputBoxHeight);
+
+            Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
+            Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;
+            Console.Write(prompt);
+            Console.CursorVisible = true;
+        }
+
+        private void InitializeMenus()
+        {
+            _manageTravelerMenu = new Menu()
+            {
+                MenuName = "ManageTraveler",
+                MenuTitle = "Manage Traveler",
+                MenuChoices = new List<TravelerAction>()
+                    {
+                        TravelerAction.MissionSetup,
+                        TravelerAction.TravelerInfo
+                    }
+            };
         }
 
         #endregion

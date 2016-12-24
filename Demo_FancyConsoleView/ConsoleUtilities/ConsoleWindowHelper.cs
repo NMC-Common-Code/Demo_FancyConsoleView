@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Demo_FancyConsoleView
@@ -93,12 +94,12 @@ namespace Demo_FancyConsoleView
         /// <param name="height">box height</param>
         public static void DisplayBoxOutline(int topLeftRow, int topLeftColumn, int width, int height)
         {
-            string topLeftCorner = "\u2554";
-            string topRightCorner = "\u2557";
-            string bottomLeftCorner = "\u255A";
-            string bottomRightCorner = "\u255D";
-            string horizontal = "\u2550";
-            string vertical = "\u2551";
+            string topLeftCorner = "\u2554";     // ╔
+            string topRightCorner = "\u2557";    // ╗
+            string bottomLeftCorner = "\u255A";  // ╚
+            string bottomRightCorner = "\u255D"; // ╝
+            string horizontal = "\u2550";        // ═
+            string vertical = "\u2551";          // ║
 
             Console.SetCursorPosition(topLeftColumn, topLeftRow);
 
@@ -157,35 +158,64 @@ namespace Demo_FancyConsoleView
         {
             List<string> formatedHeaderText = new List<string>();
 
-            formatedHeaderText.Add(new String(' ', ConsoleWindowWidth));
+            formatedHeaderText.Add(new String(' ', ConsoleLayout.WindowWidth));
             foreach (string lineOfText in headerText)
             {
                 formatedHeaderText.Add(Center(lineOfText, ConsoleLayout.WindowWidth));
             }
-            formatedHeaderText.Add(new String(' ', ConsoleWindowWidth));
+            formatedHeaderText.Add(new String(' ', ConsoleLayout.WindowWidth));
 
-            Console.BackgroundColor = HeaderBackground;
-            Console.ForegroundColor = HeaderForeground;
+            Console.BackgroundColor = ConsoleTheme.HeaderBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.HeaderForegroundColor;
+            Console.SetCursorPosition(ConsoleLayout.HeaderPositionLeft, ConsoleLayout.HeaderPositionTop);
             foreach (string lineOfText in formatedHeaderText)
             {
                 Console.Write(lineOfText);
             }
         }
 
-        //public static void HeaderTextTest()
-        //{
-        //    List<string> headerText = new List<string>();
-        //    headerText.Add("My Quest Game");
-        //    headerText.Add("Laughing Leaf Productions");
 
-        //    DisplayHeader(headerText);
-        //    Console.ReadKey();
-        //}
+        public static void DisplayFooter(List<string> headerText)
+        {
+            List<string> formatedHeaderText = new List<string>();
+
+            formatedHeaderText.Add(new String(' ', ConsoleLayout.WindowWidth));
+            foreach (string lineOfText in headerText)
+            {
+                formatedHeaderText.Add(Center(lineOfText, ConsoleLayout.WindowWidth));
+            }
+            formatedHeaderText.Add(new String(' ', ConsoleLayout.WindowWidth));
+
+            Console.BackgroundColor = ConsoleTheme.FooterBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.FooterForegroundColor;
+            Console.SetCursorPosition(ConsoleLayout.FooterPositionLeft, ConsoleLayout.FooterPositionTop);
+            foreach (string lineOfText in formatedHeaderText)
+            {
+                Console.Write(lineOfText);
+            }
+
+            Console.SetCursorPosition(0, 0);
+        }
 
         public static string Center(string text, int stringLength)
         {
             int leftPadding = (stringLength - text.Length) / 2 + text.Length;
             return text.PadLeft(leftPadding).PadRight(stringLength);
+        }
+
+        /// <summary>
+        /// convert camelCase to all upper case and spaces
+        /// reference URL - http://stackoverflow.com/questions/15458257/how-to-have-enum-values-with-spaces
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns>converted string</returns>
+        public static String ToLabelFormat(String s)
+        {
+            var newStr = Regex.Replace(s, "(?<=[A-Z])(?=[A-Z][a-z])", " ");
+            newStr = Regex.Replace(newStr, "(?<=[^A-Z])(?=[A-Z])", " ");
+            //newStr = Regex.Replace(newStr, "(?<=[A-Za-z])(?=[^A-Za-z])", " ");
+
+            return newStr;
         }
     }
 }
