@@ -37,7 +37,7 @@ namespace Demo_FancyConsoleView
         public static int FooterPositionTop = 32;
 
         //
-        // menu configuration
+        // menu box configuration
         //
         public static int MenuBoxWidth = 37;
         public static int MenuBoxHeight = 25;

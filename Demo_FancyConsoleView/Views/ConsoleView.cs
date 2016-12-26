@@ -52,7 +52,16 @@ namespace Demo_FancyConsoleView
             ConsoleWindowHelper.DisplayHeader(new List<string>() { "The TARDIS Project" });
             ConsoleWindowHelper.DisplayFooter(new List<string>() { "Laugh Leaf Productions, 2016" });
 
-            DisplayMessageBox("Hello NMC");
+            StringBuilder message = new StringBuilder();
+            message.Clear();
+            message.Append("This is the day that all good folks enjoy the beer of life. Whether the ");
+            message.Append("the weather is fair of fowl, we will boldly move toward our end.");
+            message.Append("\tTomorrow we drink more.");
+            message.Append("\n \nThis is the day that all good folks enjoy the beer of life. Whether the ");
+            message.Append("the weather is fair of fowl, we will boldly move toward our end.");
+            message.Append("\n\tTomorrow we drink more.");
+
+            DisplayMessageBox(message.ToString());
             DisplayMenuBox(_manageTravelerMenu);
             DisplayInputBox("Choose an Action: ");
         }
@@ -95,25 +104,19 @@ namespace Demo_FancyConsoleView
             Console.BackgroundColor = ConsoleTheme.MenuBorderColor;
             Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
             Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 2, ConsoleLayout.MenuBoxPositionTop + 1);
-            Console.Write(ConsoleWindowHelper.Center("Choose Action", ConsoleLayout.MenuBoxWidth - 4));
-
-            //
-            // display menu title
-            //
-            Console.BackgroundColor = ConsoleTheme.MenuBackgroundColor;
-            Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
-            Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 1, ConsoleLayout.MenuBoxPositionTop + 3);
             Console.Write(ConsoleWindowHelper.Center(menu.MenuTitle, ConsoleLayout.MenuBoxWidth - 4));
 
             //
             // display menu choices
             //
-            int topRow = ConsoleLayout.MenuBoxPositionTop + 5;
+            Console.BackgroundColor = ConsoleTheme.MenuBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
+            int topRow = ConsoleLayout.MenuBoxPositionTop + 3;
             char menuLetter = 'A';
             foreach (TravelerAction menuChoice in menu.MenuChoices)
             {
                 string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.ToString());
-                Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 2, topRow++);
+                Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
                 Console.Write($"{menuLetter++}. {formatedMenuChoice}");
             }
 
@@ -122,14 +125,34 @@ namespace Demo_FancyConsoleView
 
         private void DisplayMessageBox(string message)
         {
+            //
+            // display the outline for the message box
+            //
             Console.BackgroundColor = ConsoleTheme.MessageBoxBackgroundColor;
             Console.ForegroundColor = ConsoleTheme.MessageBoxBorderColor;
-
             ConsoleWindowHelper.DisplayBoxOutline(
                 ConsoleLayout.MessageBoxPositionTop,
                 ConsoleLayout.MessageBoxPositionLeft,
                 ConsoleLayout.MessageBoxWidth,
                 ConsoleLayout.MessageBoxHeight);
+
+            //
+            // display the text for the message box
+            //
+            Console.ForegroundColor = ConsoleTheme.MessageBoxForegroundColor;
+            List<string> messageTextLines = new List<string>();
+            messageTextLines = ConsoleWindowHelper.MessageBoxWordWrap(message, ConsoleLayout.MessageBoxWidth - 4);
+
+            int startingRow = ConsoleLayout.MessageBoxPositionTop + 1;
+            int endingRow = startingRow + messageTextLines.Count();
+            int row = startingRow;
+            foreach (string messageTextLine in messageTextLines)
+            {
+                Console.SetCursorPosition(ConsoleLayout.MessageBoxPositionLeft + 2, row);
+                Console.Write(messageTextLine);
+                row++;
+            }
+
         }
 
         private void DisplayInputBox(string prompt)

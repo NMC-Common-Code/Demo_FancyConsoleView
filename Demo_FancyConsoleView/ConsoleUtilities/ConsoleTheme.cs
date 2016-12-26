@@ -27,7 +27,7 @@ namespace Demo_FancyConsoleView
         public static ConsoleColor FooterForegroundColor = ConsoleColor.Gray;
 
         //
-        // menu colors
+        // menu box colors
         //
         public static ConsoleColor MenuBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor MenuForegroundColor = ConsoleColor.Gray;
