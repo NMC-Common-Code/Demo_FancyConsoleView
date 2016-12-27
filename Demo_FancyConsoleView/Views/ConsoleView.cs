@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo_FancyConsoleView
+namespace TheAionProject
 {
     public class ConsoleView
     {
@@ -46,24 +46,54 @@ namespace Demo_FancyConsoleView
 
         #region METHODS
 
-        public void DisplayGamePlayScreen()
+        public void DisplayGamePlayScreen(string messageBoxHeaderText, string messageBoxText, Menu menu, string inputBoxPrompt)
         {
+            //
+            // reset screen to default window colors
+            //
+            Console.BackgroundColor = ConsoleTheme.WindowBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.WindowForegroundColor;
             Console.Clear();
-            ConsoleWindowHelper.DisplayHeader(new List<string>() { "The TARDIS Project" });
-            ConsoleWindowHelper.DisplayFooter(new List<string>() { "Laugh Leaf Productions, 2016" });
 
-            StringBuilder message = new StringBuilder();
-            message.Clear();
-            message.Append("This is the day that all good folks enjoy the beer of life. Whether the ");
-            message.Append("the weather is fair of fowl, we will boldly move toward our end.");
-            message.Append("\tTomorrow we drink more.");
-            message.Append("\n \nThis is the day that all good folks enjoy the beer of life. Whether the ");
-            message.Append("the weather is fair of fowl, we will boldly move toward our end.");
-            message.Append("\n\tTomorrow we drink more.");
+            ConsoleWindowHelper.DisplayHeader(Text.HeaderText);
+            ConsoleWindowHelper.DisplayFooter(Text.FooterText);
 
-            DisplayMessageBox(message.ToString());
-            DisplayMenuBox(_manageTravelerMenu);
-            DisplayInputBox("Choose an Action: ");
+            DisplayMessageBox(messageBoxHeaderText, messageBoxText);
+            DisplayMenuBox(menu);
+            DisplayInputBox(inputBoxPrompt);
+        }
+
+        public bool DisplaySpashScreen()
+        {
+            bool playing = true;
+            ConsoleKeyInfo keyPressed;
+
+            Console.BackgroundColor = ConsoleTheme.SplashScreenBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.SplashScreenForegroundColor;
+            Console.Clear();
+            Console.CursorVisible = false;
+
+
+            Console.SetCursorPosition(0, 10);
+            string tabSpace = new String(' ', 35);
+            Console.WriteLine(tabSpace + @" _____ _              ___  _               ______          _           _   ");
+            Console.WriteLine(tabSpace + @"|_   _| |            / _ \(_)              | ___ \        (_)         | |  ");
+            Console.WriteLine(tabSpace + @"  | | | |__   ___   / /_\ \_  ___  _ __    | |_/ _ __ ___  _  ___  ___| |_ ");
+            Console.WriteLine(tabSpace + @"  | | | '_ \ / _ \  |  _  | |/ _ \| '_ \   |  __| '__/ _ \| |/ _ \/ __| __|");
+            Console.WriteLine(tabSpace + @"  | | | | | |  __/  | | | | | (_) | | | |  | |  | | | (_) | |  __| (__| |_ ");
+            Console.WriteLine(tabSpace + @"  \_/ |_| |_|\___|  \_| |_|_|\___/|_| |_|  \_|  |_|  \___/| |\___|\___|\__|");
+            Console.WriteLine(tabSpace + @"                                                         _/ |              ");
+            Console.WriteLine(tabSpace + @"                                                        |__/             ");
+
+            Console.SetCursorPosition(80, 25);
+            Console.Write("Press any key to continue or Esc to exit.");
+            keyPressed = Console.ReadKey();
+            if (keyPressed.Key == ConsoleKey.Escape)
+            {
+                playing = false;
+            }
+
+            return playing;
         }
 
         private static void InitializeDisplay()
@@ -74,7 +104,7 @@ namespace Demo_FancyConsoleView
             ConsoleWindowControl.DisableResize();
             ConsoleWindowControl.DisableMaximize();
             ConsoleWindowControl.DisableMinimize();
-            Console.Title = "Demo of Fancy Console View Framework";
+            Console.Title = "The Aion Project";
 
             //
             // set the default console window values
@@ -115,15 +145,16 @@ namespace Demo_FancyConsoleView
             char menuLetter = 'A';
             foreach (TravelerAction menuChoice in menu.MenuChoices)
             {
-                string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.ToString());
-                Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
-                Console.Write($"{menuLetter++}. {formatedMenuChoice}");
+                if (menuChoice != TravelerAction.None)
+                {
+                    string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.ToString());
+                    Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                    Console.Write($"{menuLetter++}. {formatedMenuChoice}");
+                }
             }
-
-
         }
 
-        private void DisplayMessageBox(string message)
+        private void DisplayMessageBox(string headerText, string messageText)
         {
             //
             // display the outline for the message box
@@ -137,13 +168,22 @@ namespace Demo_FancyConsoleView
                 ConsoleLayout.MessageBoxHeight);
 
             //
+            // display message box header
+            //
+            Console.BackgroundColor = ConsoleTheme.MessageBoxBorderColor;
+            Console.ForegroundColor = ConsoleTheme.MessageBoxForegroundColor;
+            Console.SetCursorPosition(ConsoleLayout.MessageBoxPositionLeft + 2, ConsoleLayout.MessageBoxPositionTop + 1);
+            Console.Write(ConsoleWindowHelper.Center(headerText, ConsoleLayout.MessageBoxWidth - 4));
+
+            //
             // display the text for the message box
             //
+            Console.BackgroundColor = ConsoleTheme.MessageBoxBackgroundColor;
             Console.ForegroundColor = ConsoleTheme.MessageBoxForegroundColor;
             List<string> messageTextLines = new List<string>();
-            messageTextLines = ConsoleWindowHelper.MessageBoxWordWrap(message, ConsoleLayout.MessageBoxWidth - 4);
+            messageTextLines = ConsoleWindowHelper.MessageBoxWordWrap(messageText, ConsoleLayout.MessageBoxWidth - 4);
 
-            int startingRow = ConsoleLayout.MessageBoxPositionTop + 1;
+            int startingRow = ConsoleLayout.MessageBoxPositionTop + 3;
             int endingRow = startingRow + messageTextLines.Count();
             int row = startingRow;
             foreach (string messageTextLine in messageTextLines)

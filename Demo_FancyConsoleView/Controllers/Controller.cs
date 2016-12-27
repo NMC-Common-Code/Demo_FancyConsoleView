@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo_FancyConsoleView
+namespace TheAionProject
 {
     public class Controller
     {
@@ -44,11 +44,8 @@ namespace Demo_FancyConsoleView
         /// </summary>
         private void InitializeGame()
         {
-            _playingGame = true;
-            //_gameUniverse = new Universe();
-            //_gameTraveler = new Traveler();
             _gameConsoleView = new ConsoleView();
-
+            _playingGame = true;
         }
 
         /// <summary>
@@ -56,99 +53,102 @@ namespace Demo_FancyConsoleView
         /// </summary>
         private void ManageGameLoop()
         {
-            TravelerAction travelerActionChoice;
+            TravelerAction travelerActionChoice = TravelerAction.None;
 
-            //_gameConsoleView.DisplayWelcomeScreen();
+            //
+            // display splash screen
+            //
+           _playingGame = _gameConsoleView.DisplaySpashScreen();
 
-            //InitializeMission();
-
-            Console.Clear();
+            if (!_playingGame)
+            {
+                Environment.Exit(1);
+            }
 
             //
             // game loop
             //
             while (_playingGame)
             {
-                //int itemID;
-                //int treasureID;
 
                 //
-                // get a menu choice from the ConsoleView object
+                // display introductory message
                 //
-                _gameConsoleView.DisplayGamePlayScreen();
+                _gameConsoleView.DisplayGamePlayScreen("Mission Intro", Text.General["IntroMessage"], ActionMenu.MissionIntro, "");
+
+
 
                 Console.ReadKey();
 
                 //
                 // choose an action based on the user's menu choice
                 //
-            //    switch (travelerActionChoice)
-            //    {
-            //        case TravelerAction.None:
-            //            break;
-            //        case TravelerAction.LookAround:
-            //            _gameConsoleView.DisplayLookAround();
-            //            break;
-            //        case TravelerAction.LookAt:
-            //            _gameConsoleView.DisplayLookAt();
-            //            break;
-            //        case TravelerAction.PickUpItem:
-            //            itemID = _gameConsoleView.DisplayPickUpItem();
+                switch (travelerActionChoice)
+                {
+                    case TravelerAction.None:
+                        break;
+                    //case TravelerAction.LookAround:
+                    //    _gameConsoleView.DisplayLookAround();
+                    //    break;
+                    //case TravelerAction.LookAt:
+                    //    _gameConsoleView.DisplayLookAt();
+                    //    break;
+                    //case TravelerAction.PickUpItem:
+                    //    itemID = _gameConsoleView.DisplayPickUpItem();
 
-            //            Item itemToPickup = _gameUniverse.GetItemtByID(itemID);
+                    //    Item itemToPickup = _gameUniverse.GetItemtByID(itemID);
 
-            //            itemToPickup.SpaceTimeLocationID = 0;
-            //            _gameTraveler.TravelersItems.Add(itemToPickup);
-            //            break;
-            //        case TravelerAction.PickUpTreasure:
-            //            treasureID = _gameConsoleView.DisplayPickUpTreasure();
+                    //    itemToPickup.SpaceTimeLocationID = 0;
+                    //    _gameTraveler.TravelersItems.Add(itemToPickup);
+                    //    break;
+                    //case TravelerAction.PickUpTreasure:
+                    //    treasureID = _gameConsoleView.DisplayPickUpTreasure();
 
-            //            Treasure treasureToPickup = _gameUniverse.GetTreasureByID(treasureID);
+                    //    Treasure treasureToPickup = _gameUniverse.GetTreasureByID(treasureID);
 
-            //            treasureToPickup.SpaceTimeLocationID = 0;
-            //            _gameTraveler.TravelersTreasures.Add(treasureToPickup);
-            //            break;
-            //        case TravelerAction.PutDownItem:
-            //            itemID = _gameConsoleView.DisplayPutDownItem();
+                    //    treasureToPickup.SpaceTimeLocationID = 0;
+                    //    _gameTraveler.TravelersTreasures.Add(treasureToPickup);
+                    //    break;
+                    //case TravelerAction.PutDownItem:
+                    //    itemID = _gameConsoleView.DisplayPutDownItem();
 
-            //            Item itemToPutDown = _gameUniverse.GetItemtByID(itemID);
+                    //    Item itemToPutDown = _gameUniverse.GetItemtByID(itemID);
 
-            //            itemToPutDown.SpaceTimeLocationID = _gameTraveler.SpaceTimeLocationID;
-            //            _gameTraveler.TravelersItems.Remove(itemToPutDown);
-            //            break;
-            //        case TravelerAction.PutDownTreasure:
+                    //    itemToPutDown.SpaceTimeLocationID = _gameTraveler.SpaceTimeLocationID;
+                    //    _gameTraveler.TravelersItems.Remove(itemToPutDown);
+                    //    break;
+                    //case TravelerAction.PutDownTreasure:
 
-            //            break;
-            //        case TravelerAction.Travel:
-            //            _gameTraveler.SpaceTimeLocationID = _gameConsoleView.DisplayGetTravelersNewDestination().SpaceTimeLocationID;
-            //            break;
-            //        case TravelerAction.TravelerInfo:
-            //            _gameConsoleView.DisplayTravelerInfo();
-            //            break;
-            //        case TravelerAction.TravelerInventory:
-            //            _gameConsoleView.DisplayTravelerItems();
-            //            break;
-            //        case TravelerAction.TravelerTreasure:
-            //            _gameConsoleView.DisplayTravelerTreasure();
-            //            break;
-            //        case TravelerAction.ListTARDISDestinations:
-            //            _gameConsoleView.DisplayListAllTARDISDestinations();
-            //            break;
-            //        case TravelerAction.ListItems:
-            //            _gameConsoleView.DisplayListAllGameItems();
-            //            break;
-            //        case TravelerAction.ListTreasures:
-            //            _gameConsoleView.DisplayListAllGameTreasures();
-            //            break;
-            //        case TravelerAction.Exit:
-            //            _usingGame = false;
-            //            break;
-            //        default:
-            //            break;
-            //    }
+                    //    break;
+                    //case TravelerAction.Travel:
+                    //    _gameTraveler.SpaceTimeLocationID = _gameConsoleView.DisplayGetTravelersNewDestination().SpaceTimeLocationID;
+                    //    break;
+                    //case TravelerAction.TravelerInfo:
+                    //    _gameConsoleView.DisplayTravelerInfo();
+                    //    break;
+                    //case TravelerAction.TravelerInventory:
+                    //    _gameConsoleView.DisplayTravelerItems();
+                    //    break;
+                    //case TravelerAction.TravelerTreasure:
+                    //    _gameConsoleView.DisplayTravelerTreasure();
+                    //    break;
+                    //case TravelerAction.ListTARDISDestinations:
+                    //    _gameConsoleView.DisplayListAllTARDISDestinations();
+                    //    break;
+                    //case TravelerAction.ListItems:
+                    //    _gameConsoleView.DisplayListAllGameItems();
+                    //    break;
+                    //case TravelerAction.ListTreasures:
+                    //    _gameConsoleView.DisplayListAllGameTreasures();
+                    //    break;
+                    case TravelerAction.Exit:
+                        _playingGame = false;
+                        break;
+                    default:
+                        break;
+                }
             }
 
-            //_gameConsoleView.DisplayExitPrompt();
 
             //
             // close the application

@@ -7,8 +7,8 @@
     <ProjectGuid>{2C1EEBC9-796C-4F53-A249-D43E37BB0E9E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Demo_FancyConsoleView</RootNamespace>
-    <AssemblyName>Demo_FancyConsoleView</AssemblyName>
+    <RootNamespace>TheAionProject</RootNamespace>
+    <AssemblyName>TheAionProject</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ActionMenu.cs" />
+    <Compile Include="Assets\Text.cs" />
     <Compile Include="ConsoleUtilities\ConsoleLayout.cs" />
     <Compile Include="ConsoleUtilities\ConsoleTheme.cs" />
     <Compile Include="ConsoleUtilities\ConsoleWindowHelper.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\Traveler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TravelerAction.cs" />

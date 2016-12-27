@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Demo_FancyConsoleView
+namespace TheAionProject
 {
     /// <summary>
     /// The ConsoleWindowHelper class provides extensions to the Console class to help 

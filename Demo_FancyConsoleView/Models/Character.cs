@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo_FancyConsoleView
+namespace TheAionProject
 {
     /// <summary>
     /// base class for the player and all game characters

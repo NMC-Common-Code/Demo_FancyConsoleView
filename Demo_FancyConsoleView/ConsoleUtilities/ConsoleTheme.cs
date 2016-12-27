@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo_FancyConsoleView
+namespace TheAionProject
 {
     public static class ConsoleTheme
     {
+        //
+        // splash screen colors
+        //
+        public static ConsoleColor SplashScreenBackgroundColor = ConsoleColor.DarkRed;
+        public static ConsoleColor SplashScreenForegroundColor = ConsoleColor.Yellow;
+
         //
         // main console window colors
         //
