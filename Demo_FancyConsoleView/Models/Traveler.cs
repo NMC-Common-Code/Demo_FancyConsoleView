@@ -8,6 +8,18 @@ namespace TheAionProject
 {
     public class Traveler : Character
     {
+        #region ENUMERABLES
+
+        public enum Rank
+        {
+            Recruit,
+            Private,
+            Corporal,
+            Sargent
+        }
+
+        #endregion
+
         #region FIELDS
 
 

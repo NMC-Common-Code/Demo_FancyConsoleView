@@ -11,6 +11,7 @@ namespace TheAionProject
         #region FIELDS
 
         private ConsoleView _gameConsoleView;
+        private Traveler _gameTraveler;
         private bool _playingGame;
 
         #endregion
@@ -45,6 +46,8 @@ namespace TheAionProject
         private void InitializeGame()
         {
             _gameConsoleView = new ConsoleView();
+            _gameTraveler = new Traveler();
+            Console.CursorVisible = false;
             _playingGame = true;
         }
 
@@ -58,7 +61,7 @@ namespace TheAionProject
             //
             // display splash screen
             //
-           _playingGame = _gameConsoleView.DisplaySpashScreen();
+            _playingGame = _gameConsoleView.DisplaySpashScreen();
 
             if (!_playingGame)
             {
@@ -66,20 +69,22 @@ namespace TheAionProject
             }
 
             //
+            // display introductory message
+            //
+            _gameConsoleView.DisplayGamePlayScreen("Mission Intro", Text.General[Text.Id.IntroMessage], ActionMenu.MissionIntro, "");
+            _gameConsoleView.GetContinueKey();
+
+
+            //
+            // initialize the mission traveler
+            // 
+            InitializeMission();
+
+            //
             // game loop
             //
             while (_playingGame)
-            {
-
-                //
-                // display introductory message
-                //
-                _gameConsoleView.DisplayGamePlayScreen("Mission Intro", Text.General["IntroMessage"], ActionMenu.MissionIntro, "");
-
-
-
-                Console.ReadKey();
-
+            { 
                 //
                 // choose an action based on the user's menu choice
                 //
@@ -87,73 +92,54 @@ namespace TheAionProject
                 {
                     case TravelerAction.None:
                         break;
-                    //case TravelerAction.LookAround:
-                    //    _gameConsoleView.DisplayLookAround();
-                    //    break;
-                    //case TravelerAction.LookAt:
-                    //    _gameConsoleView.DisplayLookAt();
-                    //    break;
-                    //case TravelerAction.PickUpItem:
-                    //    itemID = _gameConsoleView.DisplayPickUpItem();
 
-                    //    Item itemToPickup = _gameUniverse.GetItemtByID(itemID);
+                    case TravelerAction.TravelerInfo:
+                        //_gameConsoleView.DisplayTravelerInfo();
+                        break;
 
-                    //    itemToPickup.SpaceTimeLocationID = 0;
-                    //    _gameTraveler.TravelersItems.Add(itemToPickup);
-                    //    break;
-                    //case TravelerAction.PickUpTreasure:
-                    //    treasureID = _gameConsoleView.DisplayPickUpTreasure();
-
-                    //    Treasure treasureToPickup = _gameUniverse.GetTreasureByID(treasureID);
-
-                    //    treasureToPickup.SpaceTimeLocationID = 0;
-                    //    _gameTraveler.TravelersTreasures.Add(treasureToPickup);
-                    //    break;
-                    //case TravelerAction.PutDownItem:
-                    //    itemID = _gameConsoleView.DisplayPutDownItem();
-
-                    //    Item itemToPutDown = _gameUniverse.GetItemtByID(itemID);
-
-                    //    itemToPutDown.SpaceTimeLocationID = _gameTraveler.SpaceTimeLocationID;
-                    //    _gameTraveler.TravelersItems.Remove(itemToPutDown);
-                    //    break;
-                    //case TravelerAction.PutDownTreasure:
-
-                    //    break;
-                    //case TravelerAction.Travel:
-                    //    _gameTraveler.SpaceTimeLocationID = _gameConsoleView.DisplayGetTravelersNewDestination().SpaceTimeLocationID;
-                    //    break;
-                    //case TravelerAction.TravelerInfo:
-                    //    _gameConsoleView.DisplayTravelerInfo();
-                    //    break;
-                    //case TravelerAction.TravelerInventory:
-                    //    _gameConsoleView.DisplayTravelerItems();
-                    //    break;
-                    //case TravelerAction.TravelerTreasure:
-                    //    _gameConsoleView.DisplayTravelerTreasure();
-                    //    break;
-                    //case TravelerAction.ListTARDISDestinations:
-                    //    _gameConsoleView.DisplayListAllTARDISDestinations();
-                    //    break;
-                    //case TravelerAction.ListItems:
-                    //    _gameConsoleView.DisplayListAllGameItems();
-                    //    break;
-                    //case TravelerAction.ListTreasures:
-                    //    _gameConsoleView.DisplayListAllGameTreasures();
-                    //    break;
                     case TravelerAction.Exit:
                         _playingGame = false;
                         break;
+
                     default:
                         break;
                 }
             }
 
-
             //
             // close the application
             //
             Environment.Exit(1);
+        }
+
+        private void InitializeMission()
+        {
+            //
+            // intro
+            //
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionIntro(), ActionMenu.MissionIntro, "");
+            _gameConsoleView.GetContinueKey();
+
+            //
+            // get traveler's name
+            //
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionTravelerName(), ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayInputBoxPrompt("Enter your name: ");
+            _gameTraveler.Name = _gameConsoleView.GetString();
+
+            //
+            // get traveler's age
+            //
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionTravelerAge(_gameTraveler.Name), ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayInputBoxPrompt($"Enter your age {_gameTraveler.Name}: ");
+            _gameTraveler.Age = _gameConsoleView.GetInteger();
+
+            //
+            // get traveler's race
+            //
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionTravelerRace(_gameTraveler.Name), ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayInputBoxPrompt($"Enter your race {_gameTraveler.Name}: ");
+            _gameTraveler.Race = _gameConsoleView.GetRace();
         }
 
         #endregion

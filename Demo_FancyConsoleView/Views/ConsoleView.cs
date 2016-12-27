@@ -60,8 +60,43 @@ namespace TheAionProject
 
             DisplayMessageBox(messageBoxHeaderText, messageBoxText);
             DisplayMenuBox(menu);
-            DisplayInputBox(inputBoxPrompt);
+            DisplayInputBox();
         }
+
+        /// <summary>
+        /// wait for any keystroke to continue
+        /// </summary>
+        public void GetContinueKey()
+        {
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// get a string value from the user
+        /// </summary>
+        /// <returns>string value from user</returns>
+        public string GetString()
+        {
+            return Console.ReadLine();
+        }
+
+        /// <summary>
+        /// get an integer value from the user
+        /// </summary>
+        /// <returns>integer value from user</returns>
+        public int GetInteger()
+        {
+            return int.Parse(Console.ReadLine());
+        }
+
+        public Character.RaceType GetRace()
+        {
+            Character.RaceType raceType;
+            Enum.TryParse<Character.RaceType>(Console.ReadLine(), out raceType);
+
+            return raceType;
+        }
+
 
         public bool DisplaySpashScreen()
         {
@@ -195,7 +230,7 @@ namespace TheAionProject
 
         }
 
-        private void DisplayInputBox(string prompt)
+        public void DisplayInputBox()
         {
             Console.BackgroundColor = ConsoleTheme.InputBoxBackgroundColor;
             Console.ForegroundColor = ConsoleTheme.InputBoxBorderColor;
@@ -205,6 +240,23 @@ namespace TheAionProject
                 ConsoleLayout.InputBoxPositionLeft,
                 ConsoleLayout.InputBoxWidth,
                 ConsoleLayout.InputBoxHeight);
+
+            //Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
+            //Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;
+            //Console.Write(prompt);
+            //Console.CursorVisible = true;
+        }
+
+        public void DisplayInputBoxPrompt(string prompt)
+        {
+            //Console.BackgroundColor = ConsoleTheme.InputBoxBackgroundColor;
+            //Console.ForegroundColor = ConsoleTheme.InputBoxBorderColor;
+
+            //ConsoleWindowHelper.DisplayBoxOutline(
+            //    ConsoleLayout.InputBoxPositionTop,
+            //    ConsoleLayout.InputBoxPositionLeft,
+            //    ConsoleLayout.InputBoxWidth,
+            //    ConsoleLayout.InputBoxHeight);
 
             Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
             Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;

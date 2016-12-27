@@ -27,6 +27,7 @@ namespace TheAionProject
 
         private string _name;
         private int _spaceTimeLocationID;
+        private int _age;
         private RaceType _race;
 
         #endregion
@@ -43,6 +44,12 @@ namespace TheAionProject
         {
             get { return _spaceTimeLocationID; }
             set { _spaceTimeLocationID = value; }
+        }
+
+        public int Age
+        {
+            get { return _age; }
+            set { _age = value; }
         }
 
         public RaceType Race
