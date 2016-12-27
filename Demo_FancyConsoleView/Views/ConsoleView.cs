@@ -11,10 +11,9 @@ namespace TheAionProject
         #region FIELDS
 
         //
-        // declare a Universe and Traveler object for the ConsoleView object to use
+        // declare a Traveler object for the ConsoleView object to use
         //
-        //Universe _gameUniverse;
-        //Traveler _gameTraveler;
+        Traveler _gameTraveler;
 
         //
         // declare menus
@@ -33,12 +32,11 @@ namespace TheAionProject
         /// <summary>
         /// default constructor to create the console view objects
         /// </summary>
-        public ConsoleView()
+        public ConsoleView(Traveler gameTraveler)
         {
-            //_gameTraveler = gameTraveler;
-            //_gameUniverse = gameUniverse;
+            _gameTraveler = gameTraveler;
 
-            InitializeMenus();
+            //InitializeMenus();
             InitializeDisplay();
         }
 
@@ -72,9 +70,24 @@ namespace TheAionProject
         }
 
         /// <summary>
+        /// get a action menu choice from the user
+        /// </summary>
+        /// <returns>action menu choice</returns>
+        public TravelerAction GetActionMenuChoice(Menu menu)
+        {
+            TravelerAction choosenAction = TravelerAction.None;
+
+            ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+            char keyPressed = keyPressedInfo.KeyChar;
+            choosenAction = menu.MenuChoices[keyPressed];
+
+            return choosenAction;
+        }
+
+        /// <summary>
         /// get a string value from the user
         /// </summary>
-        /// <returns>string value from user</returns>
+        /// <returns>string value</returns>
         public string GetString()
         {
             return Console.ReadLine();
@@ -83,12 +96,16 @@ namespace TheAionProject
         /// <summary>
         /// get an integer value from the user
         /// </summary>
-        /// <returns>integer value from user</returns>
+        /// <returns>integer value</returns>
         public int GetInteger()
         {
             return int.Parse(Console.ReadLine());
         }
 
+        /// <summary>
+        /// get a character race value from the user
+        /// </summary>
+        /// <returns>character race value</returns>
         public Character.RaceType GetRace()
         {
             Character.RaceType raceType;
@@ -97,7 +114,10 @@ namespace TheAionProject
             return raceType;
         }
 
-
+        /// <summary>
+        /// display splash screen
+        /// </summary>
+        /// <returns>player chooses to play</returns>
         public bool DisplaySpashScreen()
         {
             bool playing = true;
@@ -177,14 +197,14 @@ namespace TheAionProject
             Console.BackgroundColor = ConsoleTheme.MenuBackgroundColor;
             Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
             int topRow = ConsoleLayout.MenuBoxPositionTop + 3;
-            char menuLetter = 'A';
-            foreach (TravelerAction menuChoice in menu.MenuChoices)
+
+            foreach (KeyValuePair<char, TravelerAction> menuChoice in menu.MenuChoices)
             {
-                if (menuChoice != TravelerAction.None)
+                if (menuChoice.Value != TravelerAction.None)
                 {
-                    string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.ToString());
+                    string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
                     Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
-                    Console.Write($"{menuLetter++}. {formatedMenuChoice}");
+                    Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
                 }
             }
         }
@@ -240,42 +260,21 @@ namespace TheAionProject
                 ConsoleLayout.InputBoxPositionLeft,
                 ConsoleLayout.InputBoxWidth,
                 ConsoleLayout.InputBoxHeight);
-
-            //Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
-            //Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;
-            //Console.Write(prompt);
-            //Console.CursorVisible = true;
         }
 
         public void DisplayInputBoxPrompt(string prompt)
         {
-            //Console.BackgroundColor = ConsoleTheme.InputBoxBackgroundColor;
-            //Console.ForegroundColor = ConsoleTheme.InputBoxBorderColor;
-
-            //ConsoleWindowHelper.DisplayBoxOutline(
-            //    ConsoleLayout.InputBoxPositionTop,
-            //    ConsoleLayout.InputBoxPositionLeft,
-            //    ConsoleLayout.InputBoxWidth,
-            //    ConsoleLayout.InputBoxHeight);
-
             Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
             Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;
             Console.Write(prompt);
             Console.CursorVisible = true;
         }
 
-        private void InitializeMenus()
+
+        public void DisplayTravelerInfo()
         {
-            _manageTravelerMenu = new Menu()
-            {
-                MenuName = "ManageTraveler",
-                MenuTitle = "Manage Traveler",
-                MenuChoices = new List<TravelerAction>()
-                    {
-                        TravelerAction.MissionSetup,
-                        TravelerAction.TravelerInfo
-                    }
-            };
+            DisplayGamePlayScreen("Traveler Information", Text.InitializeMissionEchoTravelerInfo(_gameTraveler), ActionMenu.MissionIntro, "");
+            GetContinueKey();
         }
 
         #endregion

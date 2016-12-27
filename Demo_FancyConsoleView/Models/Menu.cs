@@ -10,6 +10,6 @@ namespace TheAionProject
     {
         public string MenuName { get; set; }
         public string MenuTitle { get; set; }
-        public List<TravelerAction> MenuChoices { get; set; }
+        public Dictionary<char, TravelerAction> MenuChoices { get; set; }
     }
 }

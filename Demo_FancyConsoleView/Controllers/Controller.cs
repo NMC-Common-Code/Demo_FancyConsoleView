@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheAionProject
 {
+    /// <summary>
+    /// controller for the MVC pattern in the application
+    /// </summary>
     public class Controller
     {
         #region FIELDS
@@ -45,14 +48,15 @@ namespace TheAionProject
         /// </summary>
         private void InitializeGame()
         {
-            _gameConsoleView = new ConsoleView();
             _gameTraveler = new Traveler();
-            Console.CursorVisible = false;
+            _gameConsoleView = new ConsoleView(_gameTraveler);
             _playingGame = true;
+
+            Console.CursorVisible = false;
         }
 
         /// <summary>
-        /// method to manage the application setup and control loop
+        /// method to manage the application setup and game loop
         /// </summary>
         private void ManageGameLoop()
         {
@@ -63,6 +67,9 @@ namespace TheAionProject
             //
             _playingGame = _gameConsoleView.DisplaySpashScreen();
 
+            //
+            // player chooses to quit
+            //
             if (!_playingGame)
             {
                 Environment.Exit(1);
@@ -71,9 +78,8 @@ namespace TheAionProject
             //
             // display introductory message
             //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Intro", Text.General[Text.Id.IntroMessage], ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayGamePlayScreen("Mission Intro", Text.MissionIntro(), ActionMenu.MissionIntro, "");
             _gameConsoleView.GetContinueKey();
-
 
             //
             // initialize the mission traveler
@@ -84,7 +90,10 @@ namespace TheAionProject
             // game loop
             //
             while (_playingGame)
-            { 
+            {
+                _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(), ActionMenu.MainMenu, "");
+                travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
+
                 //
                 // choose an action based on the user's menu choice
                 //
@@ -94,7 +103,7 @@ namespace TheAionProject
                         break;
 
                     case TravelerAction.TravelerInfo:
-                        //_gameConsoleView.DisplayTravelerInfo();
+                        _gameConsoleView.DisplayTravelerInfo();
                         break;
 
                     case TravelerAction.Exit:
@@ -123,23 +132,29 @@ namespace TheAionProject
             //
             // get traveler's name
             //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionTravelerName(), ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Name", Text.InitializeMissionGetTravelerName(), ActionMenu.MissionIntro, "");
             _gameConsoleView.DisplayInputBoxPrompt("Enter your name: ");
             _gameTraveler.Name = _gameConsoleView.GetString();
 
             //
             // get traveler's age
             //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionTravelerAge(_gameTraveler.Name), ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetTravelerAge(_gameTraveler), ActionMenu.MissionIntro, "");
             _gameConsoleView.DisplayInputBoxPrompt($"Enter your age {_gameTraveler.Name}: ");
             _gameTraveler.Age = _gameConsoleView.GetInteger();
 
             //
             // get traveler's race
             //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionTravelerRace(_gameTraveler.Name), ActionMenu.MissionIntro, "");
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Race", Text.InitializeMissionGetTravelerRace(_gameTraveler), ActionMenu.MissionIntro, "");
             _gameConsoleView.DisplayInputBoxPrompt($"Enter your race {_gameTraveler.Name}: ");
             _gameTraveler.Race = _gameConsoleView.GetRace();
+
+            //
+            // echo the traveler's info
+            //
+            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Complete", Text.InitializeMissionEchoTravelerInfo(_gameTraveler), ActionMenu.MissionIntro, "");
+            _gameConsoleView.GetContinueKey();
         }
 
         #endregion

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TheAionProject
 {
+    /// <summary>
+    /// static class to manage the console game theme
+    /// </summary>
     public static class ConsoleTheme
     {
         //

@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace TheAionProject
 {
+    /// <summary>
+    /// the character class the player uses in the game
+    /// </summary>
     public class Traveler : Character
     {
         #region ENUMERABLES
 
-        public enum Rank
-        {
-            Recruit,
-            Private,
-            Corporal,
-            Sargent
-        }
 
         #endregion
 
@@ -27,8 +23,7 @@ namespace TheAionProject
 
 
         #region PROPERTIES
-
-
+        
 
         #endregion
 
@@ -49,8 +44,7 @@ namespace TheAionProject
 
 
         #region METHODS
-
-
+        
 
         #endregion
     }

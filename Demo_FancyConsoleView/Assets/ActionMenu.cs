@@ -12,9 +12,9 @@ namespace TheAionProject
         {
             MenuName = "MissionIntro",
             MenuTitle = "",
-            MenuChoices = new List<TravelerAction>()
+            MenuChoices = new Dictionary<char, TravelerAction>()
                     {
-                        TravelerAction.None
+                        { ' ', TravelerAction.None }
                     }
         };
 
@@ -22,22 +22,33 @@ namespace TheAionProject
         {
             MenuName = "InitializeMission",
             MenuTitle = "Initialize Mission",
-            MenuChoices = new List<TravelerAction>()
-                    {
-                        TravelerAction.Exit
-                    }
+            MenuChoices = new Dictionary<char, TravelerAction>()
+                {
+                    { '1', TravelerAction.Exit }
+                }
         };
 
-        public static Menu ManageTraveler = new Menu()
+        public static Menu MainMenu = new Menu()
         {
-            MenuName = "ManageTraveler",
-            MenuTitle = "Manage Traveler",
-            MenuChoices = new List<TravelerAction>()
-                    {
-                        TravelerAction.MissionSetup,
-                        TravelerAction.TravelerInfo,
-                        TravelerAction.Exit
-                    }
+            MenuName = "MainMenu",
+            MenuTitle = "Main Menu",
+            MenuChoices = new Dictionary<char, TravelerAction>()
+                {
+                    { '1', TravelerAction.TravelerInfo },
+                    { '2', TravelerAction.Exit }
+                }
         };
+
+        //public static Menu ManageTraveler = new Menu()
+        //{
+        //    MenuName = "ManageTraveler",
+        //    MenuTitle = "Manage Traveler",
+        //    MenuChoices = new Dictionary<char, TravelerAction>()
+        //            {
+        //                TravelerAction.MissionSetup,
+        //                TravelerAction.TravelerInfo,
+        //                TravelerAction.Exit
+        //            }
+        //};
     }
 }

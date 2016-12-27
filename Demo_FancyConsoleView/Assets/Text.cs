@@ -6,65 +6,47 @@ using System.Threading.Tasks;
 
 namespace TheAionProject
 {
+    /// <summary>
+    /// class to store static and to generate dynamic text for the message and input boxes
+    /// </summary>
     public static class Text
     {
-        public enum Id
-        {
-            IntroMessage,
-            InitializeMissionIntro,
-            InitializeMissionTravelerName,
-            InitializeMissionTravelerAge,
-            InitializeMissionTravelerRace
-        }
-
         public static List<string> HeaderText = new List<string>() { "The Aion Project" };
         public static List<string> FooterText = new List<string>() { "Laughing Leaf Productions, 2016" };
 
-        public static Dictionary<Id, string> General = new Dictionary<Id, string>()
+        public static string MissionIntro()
         {
-            {
-                Id.IntroMessage,
-                "You have been hired by the Norlon Corporation to participate " +
-                "in its latest endeavor, the Aion Project. Your mission is to " +
-                "test the limits of the new Aion Engine and report back to " +
-                "the Norlon Corporation.\n" +
-                " \n" +
-                "Press the Esc key to exit the game at any point.\n" +
-                " \n" +
-                "Your mission begins now.\n" +
-                " \n" +
-                "\tYour first task will be to set up the initial parameters of your mission.\n" +
-                " \n" +
-                "\tPress any key to begin the Mission Initialization Process.\n"
-            }
-        };
+            string messageBoxText =
+            "You have been hired by the Norlon Corporation to participate " +
+            "in its latest endeavor, the Aion Project. Your mission is to " +
+            "test the limits of the new Aion Engine and report back to " +
+            "the Norlon Corporation.\n" +
+            " \n" +
+            "Press the Esc key to exit the game at any point.\n" +
+            " \n" +
+            "Your mission begins now.\n" +
+            " \n" +
+            "\tYour first task will be to set up the initial parameters of your mission.\n" +
+            " \n" +
+            "\tPress any key to begin the Mission Initialization Process.\n";
 
-        //public static Dictionary<Id, string> MissionInit = new Dictionary<Id, string>()
-        //{
+            return messageBoxText;
+        }
 
-        //    {
-        //        Id.InitializeMissionIntro,
-        //        "Before you begin your mission we much gather your base data.\n" +
-        //        " \n" +
-        //        "You will be prompted for the required information. Please enter the information below.\n" +
-        //        " \n" +
-        //        "\tPress any key to begin."
-        //    },
+        public static string CurrentLocationInfo()
+        {
+            string messageBoxText =
+            "You are now in the Norlon Corporation research facility located in " +
+            "the city of Heraklion on the north coast of Crete. You have passed through " +
+            "heavy security and descended an unknown number of levels to the top secrete " +
+            "research lab for the Aion Project.\n" +
+            " \n" +
+            "\tChoose from the menu options to proceed.\n";
 
-        //    {
-        //        Id.InitializeMissionTravelerName,
-        //        "Enter your name traveler.\n" +
-        //        " \n" +
-        //        "Please use the name you wish to be referred during your mission."
-        //    },
+            return messageBoxText;
+        }
 
-        //    {
-        //        Id.InitializeMissionTravelerAge,
-        //        "Enter your age.\n" +
-        //        " \n" +
-        //        "Please use the standard Earth year as your reference."
-        //    }
-        //};
+        #region Initialize Mission Text
 
         public static string InitializeMissionIntro()
         {
@@ -78,7 +60,7 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string InitializeMissionTravelerName()
+        public static string InitializeMissionGetTravelerName()
         {
             string messageBoxText =
                 "Enter your name traveler.\n" +
@@ -88,10 +70,10 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string InitializeMissionTravelerAge(string travelerName)
+        public static string InitializeMissionGetTravelerAge(Traveler gameTraveler)
         {
             string messageBoxText =
-                $"Very good then, we will call you {travelerName} on this mission.\n" +
+                $"Very good then, we will call you {gameTraveler.Name} on this mission.\n" +
                 " \n" +
                 "Enter your age below.\n" +
                 " \n" +
@@ -100,10 +82,10 @@ namespace TheAionProject
             return messageBoxText;
         }
 
-        public static string InitializeMissionTravelerRace(string travelerName)
+        public static string InitializeMissionGetTravelerRace(Traveler gameTraveler)
         {
             string messageBoxText =
-                $"{travelerName}, it will be important for us to know your race on this mission.\n" +
+                $"{gameTraveler.Name}, it will be important for us to know your race on this mission.\n" +
                 " \n" +
                 "Enter your race below.\n" +
                 " \n" +
@@ -124,5 +106,24 @@ namespace TheAionProject
 
             return messageBoxText;
         }
+
+        public static string InitializeMissionEchoTravelerInfo(Traveler gameTraveler)
+        {
+            string messageBoxText =
+                $"Very good then {gameTraveler.Name}.\n" +
+                " \n" +
+                "It appears we have all the necessary data to begin your mission. You will find it" +
+                " listed below.\n" +
+                " \n" +
+                $"\tTraveler Name: {gameTraveler.Name}\n" +
+                $"\tTraveler Age: {gameTraveler.Age}\n" +
+                $"\tTraveler Race: {gameTraveler.Race}\n" +
+                " \n" +
+                "Press any key to begin your mission.";
+
+            return messageBoxText;
+        }
+
+        #endregion
     }
 }
